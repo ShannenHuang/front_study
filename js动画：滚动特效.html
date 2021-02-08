@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>滚动动画</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding:0;
+		}
+		li{
+			list-style-type:none;
+		}
+		.contain{
+			/*position:relative;*/
+		}
+		.contain div{
+			margin:0 auto;
+			width: 80%;
+			height: 900px;
+		}
+		.demo1{
+			background-color:red;
+		}
+		.demo2{
+			background-color:yellow;
+		}
+		.demo3{
+			background-color:green;
+		}
+		.demo4{
+			background-color:blue;
+		}
+		.demo5{
+			background-color:gray;
+		}
+		.sider-nav{
+			position: fixed;
+			right:10px;
+			top:350px;
+		}
+		.sider-nav li{
+			width:50px;
+			height:50px;
+			/*border: 1px solid orange;*/
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(className) {
+				// body...
+				return document.getElementsByClassName(className);
+			}
+			var classNames = ['demo1','demo2','demo3','demo4','demo5']
+			classNames.forEach(item => {
+				if($(item)[0].offsetHeight<=window.innerHeight*0.5){
+					$(item)[1].style['color'] = 'white'
+				}
+			})
+			setInterval(function() {
+				// body...
+				console.log($('demo1')[0].offsetTop)
+				// classNames.forEach(item => {
+				// 	console.log($(item)[0].offsetTop)
+				// 	if($(item)[0].offsetHeight<=window.innerHeight*0.5){
+				// 		$(item)[1].style['color'] = 'white'
+				// 	}
+				// })
+			},3000)
+			console.log($('demo1')[0])
+			// console.log($('demo1')[0].offsetHeight)
+			console.log(window.innerHeight)
+		}
+	</script>
+</head>
+<body>
+	<div class="contain">
+		<div class="demo1">模块一</div>
+		<div class="demo2">模块二</div>
+		<div class="demo3">模块三</div>
+		<div class="demo4">模块四</div>
+		<div class="demo5">模块五</div>
+		<ul class="sider-nav">
+			<li class="demo1">模块一</li>
+			<li class="demo2">模块二</li>
+			<li class="demo3">模块三</li>
+			<li class="demo4">模块四</li>
+			<li class="demo5">模块五</li>
+		</ul>
+	</div>
+</body>
+</html>

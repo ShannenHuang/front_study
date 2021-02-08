@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue组件的使用</title>
+    <style>
+        body{
+            color:burlywood;
+        }
+        .header{
+            width: 100%;
+            height: 40px;
+            background-color: #333;
+            line-height: 40px;
+            text-align: center;
+        }
+        .aside{
+            width:20%;
+            height: 1200px;
+            background-color:chocolate;
+            float: left;
+        }
+        .content{
+            width:80%;
+            height: 1200px;
+            background-color:crimson;
+            float: left;
+        }
+        .footer{
+            width: 100%;
+            height: 40px;
+            background-color:darkcyan;
+            text-align: center;
+            line-height: 40px;
+            clear: both;
+        }
+        .publicText{
+            width:100px;
+            height: 100px;
+            background-color:darkslategray;
+        }
+        .redText{
+            color:red;
+        }
+        .greenText{
+            color:green;
+        }
+        .blueText{
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'></div>
+    <script>
+        // 1.使用Vue.component(组件名,{options})注册公共组件
+        Vue.component('Vtext',{
+            // 将 <slot> 插槽元素作为承载分发内容的出口
+            // 插槽内可以包含任何模板代码，包括 HTML，甚至其它的组件
+            template : `
+                <div class='publicText' :class='textColor'>
+                    <p>我是一个公共组件</p>
+                    <slot></slot>
+                </div>
+            `,
+            props:['textColor'],
+        })
+        var Vheader = {
+            template : `
+                <div class='header'>
+                    头部区域
+                </div>
+            `,
+        }
+        var Vaside = {
+            template : `
+                <div class='aside'>
+                    侧边栏区域
+                    <Vtext textColor='redText'>我是侧边栏区域的第一块文本</Vtext>
+                </div>
+            `,
+        }
+        var Vcontent = {
+            // 2.在任意组件内使用公共组件
+            template : `
+                <div class='content'>
+                    内容区域
+                    <Vtext textColor='redText'>我是内容区域的第一块文本</Vtext>
+                    <Vtext textColor='greenText'>我是内容区域的第二块文本</Vtext>
+                    <Vtext textColor='blueText'>我是内容区域的第三块文本</Vtext>
+                </div>
+            `,
+        }
+        var Vfooter = {
+            template : `
+                <div class='footer'>
+                    脚部内容
+                </div>
+            `,
+        }
+        var Vmain = {
+            template : `
+                <div class='main'>
+                    <Vheader/>
+                    <Vaside/>
+                    <Vcontent/>
+                    <Vfooter/>
+                </div>
+            `,
+            components:{
+                Vheader,
+                Vaside,
+                Vcontent,
+                Vfooter,
+            },
+        }
+        new Vue({
+            el:'#app',
+            data(){
+                return{
+
+                }
+            },
+            template:`
+                <Vmain></Vmain>
+            `,
+            components:{
+                Vmain,
+            }
+        })
+    </script>
+</body>
+</html>

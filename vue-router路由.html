@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script> -->
+    <!-- 1.引入vue-router -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        // 2.Vue.use(VueRouter);可省略
+        Vue.use(VueRouter);
+        var First = {
+            template : `
+                <div>
+                    <h3>this is first view</h3>
+                </div>
+            `,
+        }
+        var Second = {
+            template : `
+                <div>
+                    <h3>this is second view</h3>
+                </div>
+            `,
+        }
+        // 3.创建并配置路由对象
+        var router = new VueRouter({
+            // 注意这里是routes
+            routes:[
+                {
+                    path:'/first_view',
+                    // 可以通过name属性为路由取名，在router-link中绑定to属性，来实现动态路由
+                    name:'first',
+                    component:First
+                },
+                {
+                    path:'/second_view',
+                    name:'second',
+                    component:Second
+                }
+            ]
+        })
+        var Vapp = {
+            // 5.在页面中应用
+            template : `
+                <div>
+                    <router-link to="/first_view">第一个页面</router-link>
+                    <router-link :to="{name:'second'}">第一个页面</router-link>
+                    <router-view></router-view>
+                </div>
+            `,
+        }
+        new Vue({
+            el:"#app",
+            template : `
+                <Vapp/>
+            `,
+            components:{
+                Vapp,
+            },
+            // 4.将路由对象挂载到Vue实例化对象中
+            router,
+        })
+    </script>
+</body>
+</html>

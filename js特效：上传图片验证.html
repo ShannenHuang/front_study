@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>js特效：上传图片验证</title>
+	<script type="text/javascript">
+		window.onload = function(){
+			var fileBtn = document.getElementById('file');
+			// var tip = document.getElementsByTagName('span')[0];
+			fileBtn.onchange = function(){
+				var path = this.value;
+				//C:\fakepath\clock.png
+				var loc = path.lastIndexOf('.');
+				var suffix = path.substring(loc,path.length).toLowerCase();
+				console.log(suffix);
+				var corret_suffixs = ['.jpg','.png','.jpeg','.gif'];
+				if(corret_suffixs.indexOf(suffix) != -1){
+					alert('上传图片格式正确！');
+				}else{
+					alert('上传图片格式错误！');
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<label for="file">上传图片格式验证：</label>
+	<input type="file" id="file" value="选择文件">
+</body>
+</html>

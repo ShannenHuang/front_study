@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：关闭小广告</title>
+	<style type="text/css">
+		*{
+			margin:0px;
+			padding:0px;
+		}
+		span{
+			margin:200px 0 0 500px;
+			display: inline-block;
+			width:10px;
+			height:10px;
+			line-height: 10px;
+			border: 1px solid gray;
+			float:left;
+		}
+		img{
+			overflow: hidden;
+			margin:200px 0 0 0;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var close = document.getElementsByTagName('span')[0];
+			var img = document.getElementsByTagName('img')[0];
+			close.onmouseover = function(){
+				close.style.cursor = 'pointer';
+			};
+			close.onclick = function(){
+				close.style.display = 'none';
+				img.style.display = 'none';
+			};
+		};
+	</script>
+</head>
+<body>
+	<span>×</span>
+	<img src="image/phone_taobao.png">
+</body>
+</html>

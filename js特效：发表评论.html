@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：发表评论</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#box{
+			width:1000px;
+			border:1px solid #333;
+			margin:100px 100px;
+			padding:40px 40px;
+		}
+		#comment_content{
+			list-style: none;
+			width:720px;
+		}
+		#comment_content li{
+			border-bottom: 1px dotted #333;
+		}
+		.del{
+			color:blue;
+			float:right;
+		}
+		.del:active{
+			color:red;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id){
+				return typeof id === 'string' ? document.getElementById(id) : null;
+			}
+			$('btn').onclick = function(){
+				var newLi = document.createElement('li');
+				newLi.innerHTML = `${$('comment').value}<a class='del'>删除</a>`;
+				$('comment_content').appendChild(newLi);
+				$('comment').value = '';
+				var delBtns = document.getElementsByClassName('del');
+				for(var i = 0;i<delBtns.length;i++){
+					delBtns[i].onclick = function(){
+						this.parentNode.remove();
+					}
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id='box'>
+		<div id='box_top'>
+			<textarea id='comment' rows=10 cols=100 placeholder="请输入您的评论"></textarea>
+			<button id='btn'>发布</button>
+		</div>
+		<ul id='comment_content'></ul>
+	</div>
+</body>
+</html>

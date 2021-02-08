@@ -1,0 +1,128 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue组件的使用</title>
+    <style>
+        body{
+            color:burlywood;
+        }
+        .header{
+            width: 100%;
+            height: 40px;
+            background-color: #333;
+            line-height: 40px;
+            text-align: center;
+        }
+        .aside{
+            width:20%;
+            height: 1200px;
+            background-color:chocolate;
+            float: left;
+        }
+        .content{
+            width:80%;
+            height: 1200px;
+            background-color:crimson;
+            float: left;
+        }
+        .footer{
+            width: 100%;
+            height: 40px;
+            background-color:darkcyan;
+            text-align: center;
+            line-height: 40px;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'></div>
+    
+    <script>
+        // (1).注册全局过滤器
+        Vue.filter('secondFilter',function(value){
+            return '我是全局过滤器：'+value;
+        })
+        var Vheader = {
+            template : `
+                <div class='header'>
+                    头部区域
+                </div>
+            `,
+        }
+        var Vaside = {
+            template : `
+                <div class='aside'>
+                    侧边栏区域
+                </div>
+            `,
+        }
+        var Vcontent = {
+            // 2.在组件中使用局部过滤器:使用管道符连接
+            // （2）.在组件中使用全局过滤器
+            template : `
+                <div class='content'>
+                    内容区域
+                    <br>
+                    <input type="text" placeholder="请输入任意内容" v-model='text'>
+                    <br>
+                    <span>{{text | firstFilter}}</span>
+                    <br>
+                    <span>{{text | secondFilter}}</span>
+                </div>
+            `,
+            filters:{
+                // 1.在filters中，注册局部过滤器
+                // value参数是管道符前的那个数据
+                'firstFilter':function(value){
+                    return '第一个过滤器：'+value
+                }
+            },
+            data(){
+                return{
+                    text:'',
+                }
+            }
+        }
+        var Vfooter = {
+            template : `
+                <div class='footer'>
+                    脚部内容
+                </div>
+            `,
+        }
+        var Vmain = {
+            template : `
+                <div class='main'>
+                    <Vheader/>
+                    <Vaside/>
+                    <Vcontent/>
+                    <Vfooter/>
+                </div>
+            `,
+            components:{
+                Vheader,
+                Vaside,
+                Vcontent,
+                Vfooter,
+            },
+        }
+        new Vue({
+            el:'#app',
+            data(){
+                return{
+
+                }
+            },
+            template:`
+                <Vmain></Vmain>
+            `,
+            components:{
+                Vmain,
+            }
+        })
+    </script>
+</body>
+</html>

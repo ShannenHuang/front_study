@@ -1,0 +1,23 @@
+{
+  "id": "1683085",
+  "name": "练手",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "106851",
+      "name": "心",
+      "font_class": "bqxin",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "8448530",
+      "name": "删除",
+      "font_class": "ziyuan",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    }
+  ]
+}

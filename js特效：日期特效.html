@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：日期特效</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		#box{ 
+			width:450px;
+			height: 300px;
+			background-color: #FF8C69;
+			border-radius: 20px;
+			margin:100px auto;
+		}
+		#time{
+			display: inline-block;
+			width:450px;
+			height:60px;
+			font-size: 26px;
+			color:#fff;
+			line-height: 60px;
+			text-align: center;
+		}
+		#date{
+			display: inline-block;
+			width:200px;
+			height:200px;
+			background-color: #848484;
+			margin:auto 125px;
+			line-height: 200px;
+			text-align: center;
+			font-size: 50px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id){
+				return typeof id === 'string' ? document.getElementById(id) : null;
+			}
+			//2020年2月8日 6:45:04 P.M. 星期天
+			var weeks = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+			window.setInterval(function(){
+				var now = new Date();
+				var year = now.getFullYear();
+				var month = now.getMonth()+1;
+				var date = now.getDate();
+				var day = weeks[now.getDay()];
+				var hour = now.getHours();
+				var minute = now.getMinutes();
+				var second = now.getSeconds();
+				var show = year + '年' + month + '月' + date + '日 ';
+				show += hour < 10 ? ' '+ hour : hour;
+				show += ':';
+				show += minute < 10 ? ' '+ minute : minute;
+				show += ':';
+				show += second < 10 ? ' '+ second : second;
+				show += hour < 12 ? ' A.M. ':' P.M. ';
+				show += day;
+				// var show = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 ' + (now.getHours() < 10 ? ' '+ now.getHours() : now.getHours() )+ ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()) + ':' + (now.getSeconds() < 10 ? '0' + now.getSeconds() : now.getSeconds()) + `${now.getHours() < 12 ?' A.M. ':' P.M. '}`+day[now.getDay()];
+				$('time').innerHTML = show;
+				$('date').innerHTML = now.getDate();
+			},0);
+		}
+	</script>
+</head>
+<body>
+	<div id='box'>
+		<p id='time'></p>
+		<p id='date'></p>
+	</div>
+</body>
+</html>

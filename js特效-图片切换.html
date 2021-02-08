@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>js特效：图片切换</title>
+	<style type="text/css">
+		img{
+			/*display: inline;*/
+			width: 400px;
+			height: 400px;
+		}
+	</style>
+</head>
+<body>
+	<img src="image/1.jpg">
+	<br>
+	<input type="submit" name="prev" value="上一张" class="prev">
+	<input type="submit" name="next" value="下一张" class="next">
+
+	<script type="text/javascript">
+		var prevBtn = document.getElementsByClassName("prev")[0];
+
+		console.log(prevBtn);
+		var nextBtn = document.getElementsByClassName("next")[0];
+		var img = document.getElementsByTagName("img")[0];
+		var min = 1,max = 5,current = min;
+		nextBtn.onclick = function(){
+			if(current >= max){
+				current = min;
+			}else{
+				current++;
+			}
+			img.setAttribute('src',`image/${current}.jpg`);
+		};
+		prevBtn.onclick = function(){
+			if(current <= min){
+				current = max;
+			}else{
+				current--;
+			}
+			img.setAttribute('src',`image/${current}.jpg`);
+		};
+	</script>
+</body>
+</html>

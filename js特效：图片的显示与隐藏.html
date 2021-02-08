@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：图片的显示与隐藏</title>
+</head>
+<body>
+	<input type="submit" name="" value="隐藏">
+	<br>
+	<img src="image/img01.jpg">
+	<script type="text/javascript">
+		var showBtn = document.getElementsByTagName("input")[0];
+		var img = document.getElementsByTagName("img")[0];
+		showBtn.onclick = function(){
+			if(showBtn.getAttribute('value') === '隐藏'){
+				img.style.visibility = 'hidden';
+				showBtn.setAttribute('value',`显示`);
+			}else{
+				img.style.visibility = 'visible';
+				showBtn.setAttribute('value',`隐藏`);
+			}
+
+		};
+	</script>
+</body>
+</html>

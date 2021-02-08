@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue组件的使用</title>
+    <style>
+        body{
+            color:burlywood;
+        }
+        .header{
+            width: 100%;
+            height: 40px;
+            background-color: #333;
+            line-height: 40px;
+            text-align: center;
+        }
+        .aside{
+            width:20%;
+            height: 1200px;
+            background-color:chocolate;
+            float: left;
+        }
+        .content{
+            width:80%;
+            height: 1200px;
+            background-color:crimson;
+            float: left;
+        }
+        .footer{
+            width: 100%;
+            height: 40px;
+            background-color:darkcyan;
+            text-align: center;
+            line-height: 40px;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'></div>
+    
+    <script>
+        var Vheader = {
+            template : `
+                <div class='header'>
+                    头部区域
+                </div>
+            `,
+        }
+        var Vaside = {
+            // 1.在html标签中绑定原生js事件
+            template : `
+                <div class='aside'>
+                    工具
+                    <br/>
+                    <button @click='addFontSize'>字体+</button>
+                    <br/>
+                    <input type="text" placeholder="输入数字减小字体">
+                    <button>确定</button>
+                </div>
+            `,
+            methods:{
+                // 2.在methods中声明所使用的方法
+                addFontSize(){
+                    // 3.调用内建的this.$emit()方法触发父组件的自定义事件
+                    // this.$emit()方法，可传入两个参数，第一个参数时事件名称，第二个参数是传入事件的参数
+                    this.$emit('addFontSize');
+                }
+            },
+        }
+        var Vcontent = {
+            template : `
+                <div class='content'>
+                    <ul>
+                        <li v-for='(title,index) in titles' :key = 'index'>
+                            <h3>{{title}}</h3>
+                        </li>
+                    </ul>
+                </div>
+            `,
+            props:['titles'],
+        }
+        var Vfooter = {
+            template : `
+                <div class='footer'>
+                    脚部内容
+                </div>
+            `,
+        }
+        var Vmain = {
+            // 5.在template中绑定自定义事件传给子组件
+            template : `
+                <div class='main' :style='{fontSize:fontSize+"px"}'>
+                    <Vheader/>
+                    <Vaside @addFontSize='addFontSize'/>
+                    <Vcontent :titles = 'titles'/>
+                    <Vfooter/>
+                </div>
+            `,
+            components:{
+                Vheader,
+                Vaside,
+                Vcontent,
+                Vfooter,
+            },
+            // 注意：data必须是一个函数
+            data(){
+                return {
+                    fontSize:16,
+                } 
+            },
+            methods:{
+                // 4.在methods中自定义事件
+                addFontSize(){
+                    this.fontSize += 1;
+                }
+            },
+            props:['titles'],
+        }
+        new Vue({
+            el:'#app',
+            data(){
+                return{
+                    titles:['标题一','标题二','标题三','标题四'],
+                }
+            },
+            template:`
+                <Vmain :titles = 'titles'></Vmain>
+            `,
+            components:{
+                Vmain,
+            }
+        })
+    </script>
+</body>
+</html>

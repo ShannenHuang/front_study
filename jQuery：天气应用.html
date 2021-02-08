@@ -1,0 +1,260 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery:天气应用</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <style>
+        .topbar{
+            background-color:#000;
+            opacity: 0.4;
+            width:100%;
+            height:40px;
+            position: relative;
+        }
+        .show-weather{
+            display: none;
+            position: absolute;
+            z-index: 10;
+            top:40px;
+            left:0;
+            background-color:#FFC1C1;
+            padding:5px 0px 5px 10px;
+        }
+        .weather-now a{
+            height:40px;
+            /* background-color: brown; */
+            display: inline-block;
+            text-decoration: none;
+            color:#fff;
+            overflow: hidden;
+        }
+        .weather-now a:active{
+            color:#fff;
+        }
+        .weather-now a .weatherImg{
+            width:30px;
+            height:30px;
+            padding:5px 5px;
+            float:left;
+        }
+        .weather-now a .city,.tmp,.cond_txt,.fl{
+            text-align: center;
+            line-height: 30px;
+            height:40px;
+            display: inline-block;
+            /* background-color: indigo; */
+            float:left;
+            padding:5px;
+        }
+        .everday-item{
+            /* float: left; */
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .everday-item p,img{
+            padding-bottom:2px;
+            height: 40px;
+            line-height: 38px;
+            
+        }
+    </style>
+    <script src="./js/jquery-3.4.1.js"></script>
+    <script src="js/moment.js"></script>
+    <script>
+        $(function(){
+            // 进入页面显示数据
+            getNowWeather('https://free-api.heweather.net/s6/weather/now?location=sanming&key=832a003ec86149c78a2348fd7f732277');
+            // 每隔一个小时更新一次数据
+            setInterval(function(){
+                getNowWeather('https://free-api.heweather.net/s6/weather/now?location=sanming&key=832a003ec86149c78a2348fd7f732277');
+                getForecastWeather('https://free-api.heweather.net/s6/weather/forecast?location=sanming&key=832a003ec86149c78a2348fd7f732277');
+            },1000 * 60 *60);
+            // 设置鼠标悬停事件
+            $('.weather-now').hover(function(){
+                $('.weather-now .show-weather').stop().fadeIn(); 
+                getForecastWeather('https://free-api.heweather.net/s6/weather/forecast?location=sanming&key=832a003ec86149c78a2348fd7f732277');      
+            },function() {
+                $('.weather-now .show-weather').stop().fadeOut(); 
+            })
+            // 获取3天内的天气           
+            function getForecastWeather(url){
+                $.ajax({
+                    url:url,
+                    method:'get',
+                    success:function(res){
+                        // console.log(res);
+                        var daily_forecast = res.HeWeather6[0].daily_forecast;
+                        // console.log(daily_forecast);
+                        $('.everday-item').each(function(i){
+                            // “白天”指8点～18点； “夜里”指18点～次日6点
+                            var cond_code_d = daily_forecast[i].cond_code_d;//白天天气状况代码
+                            // var cond_code_n = daily_forecast[i].cond_code_n;//夜间天气状况代码
+                            var cond_txt_d = daily_forecast[i].cond_txt_d;//白天天气状况描述
+                            // var cond_txt_n = daily_forecast[i].cond_txt_n;//晚间天气状况描述
+                            var wind_dir = daily_forecast[i].wind_dir;//风向
+                            var tmp_max = daily_forecast[i].tmp_max;//最高温度
+                            var tmp_min = daily_forecast[i].tmp_min;//最低温度
+                            var date = daily_forecast[i].date;
+                            var days = ['今天','明天','后天']; 
+                            var week = moment(date).format('dddd');
+                            $(this).empty();
+                            $(this).append(`
+                            <p>${days[i]}(${week})</p>
+                            <img src='./image/hefeng/${cond_code_d}.png'></img>
+                            <p>${tmp_min}℃~${tmp_max}℃</p>
+                            <p>${cond_txt_d}</p>
+                            <p>${wind_dir}</p>
+                            `);
+                        })
+                    },
+                    error:function(err){
+                        console.log(err);
+                    }
+                })
+            }
+            // 获取当前天气
+            function getNowWeather(url){
+                $.ajax({
+                    url:url,
+                    method:'get',
+                    success:function(res){
+                        // console.log(res);
+                        if(res.HeWeather6[0].status === 'ok'){
+                            // console.log(res.HeWeather6[0].now);
+                            var city = res.HeWeather6[0].basic.location;
+                            var cond_code = res.HeWeather6[0].now.cond_code;//实况天气状况代码
+                            var cond_txt = res.HeWeather6[0].now.cond_txt;//实况天气状况描述
+                            var fl = res.HeWeather6[0].now.fl;//体感温度，默认单位：摄氏度
+                            var wind_dir = res.HeWeather6[0].now.wind_dir;//风向
+                            var tmp = res.HeWeather6[0].now.tmp;//温度，默认单位：摄氏度
+                            // console.log(city,cond_code,cond_txt,fl,wind_dir,tmp);
+                            $('.weather-now a .city').html(city+'');
+                            $('.weather-now a .weatherImg').attr('src',`./image/hefeng/${cond_code}.png`);
+                            $('.weather-now a .tmp').html(tmp+'℃');
+                            $('.weather-now a .cond_txt').html(cond_txt);
+                            $('.weather-now a .fl').html(fl);
+                        }
+                    },
+                    error:function(err){
+                        console.log(err)
+                    }
+                })
+            }
+            // 设置全局为中文
+            moment.locale('zh-cn', {
+                months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+                monthsShort: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+                weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+                weekdaysShort: '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+                weekdaysMin: '日_一_二_三_四_五_六'.split('_'),
+                longDateFormat: {
+                    LT: 'HH:mm',
+                    LTS: 'HH:mm:ss',
+                    L: 'YYYY-MM-DD',
+                    LL: 'YYYY年MM月DD日',
+                    LLL: 'YYYY年MM月DD日Ah点mm分',
+                    LLLL: 'YYYY年MM月DD日ddddAh点mm分',
+                    l: 'YYYY-M-D',
+                    ll: 'YYYY年M月D日',
+                    lll: 'YYYY年M月D日 HH:mm',
+                    llll: 'YYYY年M月D日dddd HH:mm'
+                },
+                meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
+                meridiemHour: function (hour, meridiem) {
+                    if (hour === 12) {
+                        hour = 0;
+                    }
+                    if (meridiem === '凌晨' || meridiem === '早上' ||
+                        meridiem === '上午') {
+                        return hour;
+                    } else if (meridiem === '下午' || meridiem === '晚上') {
+                        return hour + 12;
+                    } else {
+                        // '中午'
+                        return hour >= 11 ? hour : hour + 12;
+                    }
+                },
+                meridiem: function (hour, minute, isLower) {
+                    const hm = hour * 100 + minute;
+                    if (hm < 600) {
+                        return '凌晨';
+                    } else if (hm < 900) {
+                        return '早上';
+                    } else if (hm < 1130) {
+                        return '上午';
+                    } else if (hm < 1230) {
+                        return '中午';
+                    } else if (hm < 1800) {
+                        return '下午';
+                    } else {
+                        return '晚上';
+                    }
+                },
+                calendar: {
+                    sameDay: '[今天]LT',
+                    nextDay: '[明天]LT',
+                    nextWeek: '[下]ddddLT',
+                    lastDay: '[昨天]LT',
+                    lastWeek: '[上]ddddLT',
+                    sameElse: 'L'
+                },
+                dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
+                ordinal: function (number, period) {
+                    switch (period) {
+                        case 'd':
+                        case 'D':
+                        case 'DDD':
+                            return number + '日';
+                        case 'M':
+                            return number + '月';
+                        case 'w':
+                        case 'W':
+                            return number + '周';
+                        default:
+                            return number;
+                    }
+                },
+                relativeTime: {
+                    future: '%s内',
+                    past: '%s前',
+                    s: '几秒',
+                    ss: '%d秒',
+                    m: '1分钟',
+                    mm: '%d分钟',
+                    h: '1小时',
+                    hh: '%d小时',
+                    d: '1天',
+                    dd: '%d天',
+                    M: '1个月',
+                    MM: '%d个月',
+                    y: '1年',
+                    yy: '%d年'
+                },
+                week: {
+                    dow: 1,
+                    doy: 4
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class='topbar'>
+        <div class='weather-now'>
+            <a href="javascript:void(0)">
+                <span class='city'></span>
+                <img src="" alt="" class="weatherImg">
+                <span class="tmp"></span>
+                <span class="cond_txt"></span>
+                <span class="fl"></span>
+            </a>
+            <div class="show-weather">
+                <div class="everday-item"></div>
+                <div class="everday-item"></div>
+                <div class="everday-item"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

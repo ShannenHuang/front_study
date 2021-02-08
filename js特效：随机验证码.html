@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：随机验证码</title>
+	<style type="text/css">
+		div{
+			width:150px;
+			height:150px;
+			background-image:url('image/background1.jpg');
+			background-size: 150px 150px;
+			line-height: 150px;
+			text-align: center;
+			font-size:25px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			function $(id){
+				return typeof id === 'string' ? document.getElementById(id) : null;
+			}
+			function random(min,max){
+				return Math.floor(Math.random()*(max-min)+min);
+			}
+			function randomVerifyCode(codeLength){
+				var codes = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',0,1,2,3,4,5,6,7,8,9];
+				var randomCode = '';
+				for(var i = 0;i<codeLength;i++){
+					randomCode += codes[random(0,codes.length-1)];
+				}
+				return randomCode;
+			}
+			var randomCode = randomVerifyCode(4);
+			$('verCode').innerHTML = randomCode;
+			$('verify').onclick = function(){
+				if($('inCode').value.toLowerCase() === randomCode.toLowerCase()){
+					document.location.href = "https://www.baidu.com"
+				}else{
+					alert("验证失败！");
+					randomCode = randomVerifyCode(4);
+					$('verCode').innerHTML = randomCode;
+					$('inCode').value = '';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id='verCode'></div>
+	<input type="text" id='inCode'>
+	<input type="submit" id='verify'>
+</body>
+</html>

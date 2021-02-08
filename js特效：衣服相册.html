@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：衣服相册</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<style type="text/css">
+		.bigImage{
+			width: 347px;
+			height:347px;
+		}
+		ul{
+			overflow: hidden;
+		}
+		li{
+			float:left;
+			width:50px;
+			height:50px;
+			margin: 0 8px 0 8px;
+			border:2px solid white;
+		}
+		li>img{
+			width:50px;
+			height:50px;
+		}
+		li.active{
+			border:2px solid red;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var bigImage = document.getElementsByClassName('bigImage')[0];
+			var smallImages = document.getElementsByTagName('li');
+			for(var i=0;i<smallImages.length;i++){
+				smallImages[i].onmouseover = function(){
+					for(var j=0;j<smallImages.length;j++){
+						smallImages[j].setAttribute('class','');
+					}
+					this.setAttribute('class','active');
+					// console.log(this.childNodes[1]);
+					bigImage.setAttribute('src',this.childNodes[1].getAttribute('src'));
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+	<img src="image/1.jpg" class="bigImage">
+	<br>
+	<ul>
+		<li class="active">
+			<img src="image/1.jpg">
+		</li>
+		<li>
+			<img src="image/2.jpg">
+		</li>
+		<li>
+			<img src="image/3.jpg">
+		</li>
+		<li>
+			<img src="image/4.jpg">
+		</li>
+		<li>
+			<img src="image/5.jpg">
+		</li>
+	</ul>
+</body>
+</html>

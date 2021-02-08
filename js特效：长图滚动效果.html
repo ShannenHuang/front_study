@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：长途滚动效果</title>
+	<style type="text/css">
+		body{
+			background-color: #333;
+		}
+		.box{
+			background:url('image/timer.jpeg');
+			width: 658px;
+			height: 400px;
+			margin:100px auto;
+		}
+		.top,.bottom{
+			width: 658px;
+			height: 200px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var top = document.getElementsByClassName('top')[0];
+			var bottom = document.getElementsByClassName('bottom')[0];
+			var box = document.getElementsByClassName('box')[0];
+			var loc = 0;
+			var timer = null;
+			top.onmouseover = function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					//658 4066
+					if(loc > -3666){
+						box.style.backgroundPosition = `0px ${loc--}px`;
+					}else{
+						clearInterval(timer);
+					}
+				},0)
+			}
+			bottom.onmouseover = function(){
+				clearInterval(timer);
+				timer = setInterval(function(){
+					if(loc < 0){
+						box.style.backgroundPosition = `0px ${loc++}px`;
+					}else{
+						clearInterval(timer);
+					}				
+				},0)
+			}
+			box.onmouseout = function(){
+				clearInterval(timer);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class='box'>
+		<div class='top'></div>
+		<div class='bottom'></div>
+	</div>
+</body>
+</html>

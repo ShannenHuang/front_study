@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：九宫格布局</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		span{
+			color:#ff6700;
+			font-size: 18px;
+			font-weight: bold;
+		}
+		p{
+			font-size: 13px;
+			width: 250px;
+			height:30px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		#cargo{
+			margin:0 10px;
+		}
+		#cargo div{
+			width:250px;
+			height:360px;
+		}
+	</style>
+	<script type="text/javascript">
+		//浮动
+		// window.onload = function(){
+		// 	function $(id){
+		// 		return typeof id === 'string' ? document.getElementById(id):null;
+		// 	}
+		// 	function layout(id,width){
+		// 		$(id).onclick = function(){
+		// 			$('cargo-list').style.width = width;
+		// 			var cargos = document.getElementsByClassName('cargo');
+		// 			for(var i = 0;i<cargos.length;i++){
+		// 				cargos[i].style.float = 'left';
+		// 			}
+		// 		}
+		// 	}
+		// 	layout('3','760px');			
+		// 	layout('4','1010px');			
+		// 	layout('5','1260px');
+		// }
+
+		//定位
+		window.onload = function(){
+			function $(id){
+				return typeof id === 'string' ? document.getElementById(id):null;
+			}
+			function event(rowsNum){
+				var cargos = document.getElementsByClassName('cargo');
+				$('cargo-list').style.position = 'relative';
+				$('cargo-list').style.width = rowsNum * cargos[0].style.width;
+				for(var i = 0;i<cargos.length;i++){
+					cargos[i].style.position = 'absolute';
+					cargos[i].style.left = 250 * (i%rowsNum) + 'px';
+					cargos[i].style.top = 360 * Math.floor(i/rowsNum) + 'px';
+					// console.log('i:'+i+'	行：'+Math.floor(i/rowsNum)+'	列：'+i%rowsNum);
+					// console.log(`cargos[${i}].style.left:`+cargos[i].style.left+`	cargos[${i}].style.top:`+cargos[i].style.top);
+				}
+			}
+
+			$('3').onclick = function(){
+				event(3);
+			}
+			$('4').onclick = function(){
+				event(4);
+			}
+			$('5').onclick = function(){
+				event(5);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<button id='3'>3列</button>
+		<button id='4'>4列</button>
+		<button id='5'>5列</button>
+	</div>
+	<div id="cargo-list">
+		<div class='cargo'>
+			<img src="image/taobao_1.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_2.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_3.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_4.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_5.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_6.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_7.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_8.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_9.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_10.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_11.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_12.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+		<div class='cargo'>
+			<img src="image/taobao_13.jpg">
+			<p>纯色短袖女春季秋t恤韩版国新款服装2019潮</p>
+			<span>￥79</span>
+		</div>
+	</div>
+</body>
+</html>

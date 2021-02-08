@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：数字时钟</title>
+	<style type="text/css">
+		#clock{
+			width:600px;
+			height:600px;
+			background: url('image/clock.jpg') no-repeat;
+			position:relative;
+		}
+		#hour,#minute,#second{
+			width:30px;
+			height: 600px;
+			position: absolute;
+			left:285px;
+		}
+		#hour{
+			background: url('image/hour.png') no-repeat;			
+		}
+		#minute{
+			background: url('image/minute.png') no-repeat;
+		}
+		#second{
+			background: url('image/second.png') no-repeat;
+		}
+	</style>
+	<script type="text/javascript">
+		// transform: translate(100px,200px) rotate(10deg) scale(2.0) skew(10deg);
+		window.onload = function(){
+			function $(id){
+				return typeof id === 'string' ? document.getElementById(id) : null;
+			}
+			setInterval(function(){
+				var now = new Date();
+				var second = now.getSeconds();
+				var minute = now.getMinutes() + second / 60;
+				var hour = now.getHours() % 12 + minute / 60;
+				$('second').style.transform = `translate(0px,0px) rotate(${second / 60 * 360}deg) scale(1) skew(0deg)`
+				$('minute').style.transform = `translate(0px,0px) rotate(${minute / 60 * 360}deg) scale(1) skew(0deg)`;
+				$('hour').style.transform = `translate(0px,0px) rotate(${hour / 12 * 360}deg) scale(1) skew(0deg)`;
+			});
+		}
+	</script>
+</head>
+<body>
+	<div id='clock'>
+		<div id='hour'></div>
+		<div id='minute'></div>
+		<div id='second'></div>
+	</div>
+</body>
+</html>

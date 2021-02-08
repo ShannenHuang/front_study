@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js特效：表单验证</title>
+	<style type="text/css">
+		#score{
+			border: 1px solid darkgray;
+		}
+		span{
+			color: darkgray;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var scoreInput = document.getElementById('score');
+			var tip = document.getElementsByTagName('span')[0];
+			scoreInput.onfocus = function(){
+				this.value='';
+				this.style.borderColor = 'darkgray';
+				tip.innerHTML = "请输入成绩";
+			}
+			scoreInput.onblur = function(){
+				var score = parseFloat(this.value);
+				if(isNaN(score)){
+					tip.innerHTML = "输入成绩格式不正确！";
+					tip.style.color = 'red';
+					this.style.borderColor = 'red';
+				}else if(score>100 || score<0){
+					tip.innerHTML = "输入成绩需要在0~100之间！";
+					tip.style.color = 'red';
+					this.style.borderColor = 'red';
+				}else{
+					tip.innerHTML = "输入成绩正确！";
+					tip.style.color = 'green';
+					this.style.borderColor = 'green';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<label for="score">成绩：</label>
+	<input type="text" placeholder="请输入成绩" name="" id="score">
+	<span></span>
+</body>
+</html>

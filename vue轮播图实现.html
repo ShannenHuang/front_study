@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue轮播图</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        img{
+            height: 500px;
+        }
+        li{
+            width:50px;
+            height: 50px;
+            background-color: brown;
+            text-align: center;
+            line-height: 50px;
+            list-style: none;
+            display: inline-block;
+        }
+        li.active{
+            background-color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <div id='lunbo'>
+        <img alt="轮播图" v-bind:src='imgSrc'>
+        <ul>
+            <li v-for = '(item,index) in imgs' v-on:click = 'changeIndex(index)' v-bind:class = '{active:index === currentIndex}'>{{index+1}}</li>
+            <!-- 遍历数组时，若只取index，不可以写成'index in imgs'，in前面只有一个参数时，指的是数组中的元素而不是下标，不要被名称迷惑了！！ -->
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:'#lunbo',
+            data(){
+                return{
+                    imgs:['./image/skin1.jpg','./image/skin2.jpg','./image/skin3.jpg','./image/skin4.jpg'],
+                    currentIndex:0,
+                    imgSrc:'./image/skin1.jpg',
+                    // 数据修改在方法中进行，在data中对数据进行更改不起作用
+                    // imgSrc:this.imgs[this.currentIndex]
+                }
+            },
+            methods:{
+                changeIndex(index){
+                    this.currentIndex = index;
+                    this.imgSrc = this.imgs[this.currentIndex];
+                }
+            }
+        });
+    </script>
+</body>
+</html>

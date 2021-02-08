@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>第一个echarts实例</title>
+	<!-- 1.引入echarts库 -->
+	<!-- <script src="./echarts.js"></script> -->
+	<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+	<!-- 2.为echarts准备一个具备宽高的DOM容器 -->
+	<div id="firstEcharts" style="width: 600px;height:600px"></div>
+	<!-- <div id="main" style="width: 600px;height:400px;"></div> -->
+	<script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('firstEcharts'));
+ 
+        // 指定图表的配置项和数据
+        var option = {
+        	// 配置图标标题
+            title: {
+                text: '第一个 ECharts 实例'
+            },
+            // 配置提示信息
+            tooltip: {},
+            // 配置图例样式
+            legend: {
+                data:[{
+                	name:'销量',
+                	icon:'circle',
+                	textStyle:{
+                		color:'red'
+                	}
+                },{
+                	name:'测试',
+                	icon:'square'
+                }]
+            },
+            // 配置要在 X 轴显示的项
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            // 配置要在 Y 轴显示的项
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            },{
+                name: '测试',
+                type: 'bar',
+                data: [8, 10, 16, 28, 5, 14]
+            }]
+        };
+ 
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+		
+		
+	</script>
+</body>
+</html>
