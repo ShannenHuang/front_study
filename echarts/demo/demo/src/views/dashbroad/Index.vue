@@ -1,6 +1,7 @@
 <template>
   <div>
     <dv-full-screen-container class="bg">
+      <!-- 顶部标题栏 -->
       <div class="head">
         <div class="empty" />
         <div class="center">
@@ -10,8 +11,27 @@
           <span>2021-02-18 10:56:11 星期四</span>
         </div>
       </div>
+      <!-- 内容区域 -->
       <div class="body-box">
+        <div class="left">
+          <dv-border-box-1>
+            <div class="accident">
 
+            </div>
+          </dv-border-box-1>
+          <div class="user">
+
+          </div>
+          <div class="info">
+
+          </div>
+        </div>
+        <div class="center">
+
+        </div>
+        <div class="right">
+
+        </div>
       </div>
     </dv-full-screen-container>
   </div>
@@ -32,8 +52,6 @@ export default {
 }
 .head {
   display: flex;
-  height: 2em;
-  line-height: 2em;
   font-size: 18px;
   font-weight: bolder;
   color: white;
@@ -44,12 +62,11 @@ export default {
   .center {
     flex: 1;
     text-align: center;
-    background-color: green;
   }
   .datetime {
     width: 28%;
     text-align: center;
-    // background-color: yellow;
+    background-color: green;
   }
 }
 </style>

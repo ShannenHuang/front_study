@@ -7,6 +7,9 @@ import dataV from '@jiaminghi/data-view'
 
 Vue.use(dataV)
 
+// 自适应
+import '@/common/flexible.js'
+
 Vue.config.productionTip = false
 
 new Vue({
