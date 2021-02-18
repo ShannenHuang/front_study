@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flex布局</title>
+    <!-- <link rel="stylesheet" type="text/css" href="css/reset.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/flex.css" /> -->
+    <style type="text/css">
+      body {
+        background-color: black;
+      }
+      .box {
+        background-color: white;
+        width: 160px;
+        height: 160px;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        /* 四项目分布于四个角 */
+      }
+      .column {
+        display: flex;
+      }
+      .item {
+        background-color: red;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="column">
+        <span class="item"></span>
+        <span class="item"></span>
+      </div>
+      <div class="column">
+        <span class="item"></span>
+        <span class="item"></span>
+      </div>
+    </div>
+  </body>
+</html>

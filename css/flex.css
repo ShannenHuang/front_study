@@ -1,0 +1,9 @@
+body {
+  background-color: black;
+}
+.box {
+  background-color: white;
+  display: block;
+  width: 100px;
+  height: 100px;
+}
