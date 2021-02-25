@@ -1,36 +1,29 @@
 <template>
   <div>
     <dv-full-screen-container class="bg">
+      <!-- <dv-full-screen-container> -->
       <!-- 顶部标题栏 -->
-      <div class="head">
-        <div class="empty" />
+      <div class="d-flex top">
+        <div class="left" />
         <div class="center">
           <span class="title">车联网智能监控大屏</span>
         </div>
-        <div class="datetime">
+        <div class="right">
           <span>2021-02-18 10:56:11 星期四</span>
         </div>
       </div>
       <!-- 内容区域 -->
-      <div class="body-box">
+      <div class="d-flex body-box">
         <div class="left">
-          <dv-border-box-1>
-            <div class="accident">
-
-            </div>
-          </dv-border-box-1>
-          <div class="user">
-
-          </div>
-          <div class="info">
-
-          </div>
+          <LeftTop />
+          <LeftCenter />
+          <LeftButtom />
         </div>
         <div class="center">
 
         </div>
         <div class="right">
-
+          <RightTop />
         </div>
       </div>
     </dv-full-screen-container>
@@ -38,35 +31,46 @@
 </template>
 
 <script>
+
+import LeftTop from './LeftTop.vue'
+import LeftCenter from './LeftCenter.vue'
+import LeftButtom from './LeftButtom.vue'
+import RightTop from './RightTop.vue'
 export default {
-  name: 'DataView'
+  name: 'DataView',
+  components: {
+    LeftTop,
+    LeftCenter,
+    LeftButtom,
+    RightTop
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .bg {
   padding: 0.2rem 0.2rem 0 0.2rem;
-  background-image: url("../../assets/pageBg.png");
+  background-image: url("../../assets/pageBg.jpg");
   background-position: center center;
   background-size: cover;
-}
-.head {
-  display: flex;
-  font-size: 18px;
-  font-weight: bolder;
   color: white;
-  .empty {
+}
+.d-flex {
+  display: flex;
+  .left {
     width: 28%;
-    background-color: red;
+  }
+  .right {
+    width: 28%;
+    margin-right: 30px;
   }
   .center {
     flex: 1;
-    text-align: center;
   }
-  .datetime {
-    width: 28%;
-    text-align: center;
-    background-color: green;
-  }
+}
+.top {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 </style>

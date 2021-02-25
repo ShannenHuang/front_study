@@ -7,8 +7,20 @@ import dataV from '@jiaminghi/data-view'
 
 Vue.use(dataV)
 
-// 自适应
+// 屏幕自适应
 import '@/common/flexible.js'
+//清除默认样式
+import '../src/assets/style/reset.css'
+// 全局引入echarts
+import * as echarts from "echarts"
+Vue.prototype.$echarts = echarts
+// 引入echarts-wordcloud
+import 'echarts-wordcloud'
+
+// 引入插件countTo
+import CountTo from 'vue-count-to'
+// 挂载
+Vue.component('CountTo', CountTo)
 
 Vue.config.productionTip = false
 
