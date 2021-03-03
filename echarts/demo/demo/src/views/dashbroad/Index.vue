@@ -20,10 +20,12 @@
           <LeftButtom />
         </div>
         <div class="center">
-
+          <CenterTop />
+          <CenterBottom />
         </div>
         <div class="right">
           <RightTop />
+          <RightBottom />
         </div>
       </div>
     </dv-full-screen-container>
@@ -31,18 +33,23 @@
 </template>
 
 <script>
-
+import CenterTop from './CenterTop.vue'
+import CenterBottom from './CenterBottom.vue'
 import LeftTop from './LeftTop.vue'
 import LeftCenter from './LeftCenter.vue'
 import LeftButtom from './LeftButtom.vue'
 import RightTop from './RightTop.vue'
+import RightBottom from './RightBottom.vue'
 export default {
   name: 'DataView',
   components: {
     LeftTop,
     LeftCenter,
     LeftButtom,
-    RightTop
+    RightTop,
+    RightBottom,
+    CenterBottom,
+    CenterTop
   },
 }
 </script>

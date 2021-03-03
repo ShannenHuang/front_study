@@ -16,6 +16,9 @@ import * as echarts from "echarts"
 Vue.prototype.$echarts = echarts
 // 引入echarts-wordcloud
 import 'echarts-wordcloud'
+// 引入中国地图
+import china from '@/assets/china.json'
+echarts.registerMap('china', china)
 
 // 引入插件countTo
 import CountTo from 'vue-count-to'

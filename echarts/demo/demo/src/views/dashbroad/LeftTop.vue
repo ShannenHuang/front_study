@@ -4,8 +4,8 @@
       <span class="title">车联网区域碰撞事故分布</span>
       <Echarts
         id="accident-distribution"
-        width="100%"
-        height="300px"
+        width="90%"
+        height="280px"
         :options="options"
       />
     </dv-border-box-1>
@@ -64,8 +64,14 @@ export default {
 .leftTop {
   text-align: center;
   font-size: 18px;
+  height: 320px;
   .title {
     font-weight: bolder;
+  }
+  #accident-distribution {
+    background-color: rgba(220, 220, 220, 0.2);
+    margin: 5px 10px 5px 20px;
+    padding-bottom: 5px;
   }
 }
 </style>

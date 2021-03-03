@@ -96,6 +96,7 @@ export default {
 <style lang="scss" scoped>
 .main {
   height: 540px;
+  margin-bottom: 20px;
   .title {
     text-align: center;
     font-weight: bolder;
