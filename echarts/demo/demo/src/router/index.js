@@ -16,11 +16,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/dashbroad/Index.vue')
   },
-  {
-    path: '/map',
-    name: 'map',
-    component: () => import(/* webpackChunkName: "about" */ '../views/dashbroad/mapChart.vue')
-  },
+  // {
+  //   path: '/map',
+  //   name: 'map',
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/dashbroad/mapChart.vue')
+  // },
 ]
 
 const router = new VueRouter({
